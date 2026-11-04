@@ -1,0 +1,10 @@
+## Interface: 11200
+## Author: 阿拉正经人 Gello(Modified by Khalil)
+## Title:  |CFF33AAFF[辅助]|R一键换装
+## Notes: 一键换装兼顾饰品管理功能
+## SavedVariables: ItemRack_Users, ItemRack_Settings, ItemRack_Events, Rack_User
+## OptionalDeps: IsMounted, ButtonHole
+localization.lua
+ItemRack.lua
+ItemRack.xml
+ItemRackSets.xml

@@ -1,0 +1,107 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+
+	<!-- Hidden tooltip for scanning spells/items -->
+	<GameTooltip name="GBDS_Tooltip" inherits="GameTooltipTemplate">
+		<Anchors>
+			<Anchor point="BOTTOM" relativePoint="TOP">
+				<Offset><AbsDimension x="0" y="100"/></Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>this:SetOwner(this, "ANCHOR_NONE")</OnLoad>
+		</Scripts>
+	</GameTooltip>
+
+	<!-- ================================================================ -->
+	<!-- Main Config Frame                                                 -->
+	<!-- ================================================================ -->
+	<Frame name="GBDSwitcher_ConfigFrame" hidden="true" movable="true" toplevel="true"
+	       enableMouse="true" frameStrata="DIALOG" parent="UIParent">
+		<Size>
+			<AbsDimension x="380" y="530"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset><AbsDimension x="0" y="0"/></Offset>
+			</Anchor>
+		</Anchors>
+
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
+		          edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize><AbsValue val="32"/></TileSize>
+			<EdgeSize><AbsValue val="32"/></EdgeSize>
+		</Backdrop>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<!-- Title Area -->
+				<FontString name="GBDS_Title" inherits="GameFontNormal" text="GBDSwitcher v0.1">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset><AbsDimension x="0" y="-16"/></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<!-- List Section Headers & Textures attached dynamically by Lua -->
+				
+				<!-- Separator before settings -->
+				<Texture name="GBDS_Sep2">
+					<Size><AbsDimension x="350" y="1"/></Size>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-430"/></Offset></Anchor></Anchors>
+					<Color r="0.5" g="0.5" b="0.5" a="0.7"/>
+				</Texture>
+
+				<!-- Delay label -->
+				<FontString name="GBDS_DelayLabel" inherits="GameFontNormalSmall" text="Delay:">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-442"/></Offset></Anchor></Anchors>
+				</FontString>
+				<FontString name="GBDS_DelayValue" inherits="GameFontHighlightSmall" text="2s">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="122" y="-442"/></Offset></Anchor></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<!-- Container frame for dynamically generated UI rows -->
+			<Frame name="GBDSwitcher_ListPanel">
+				<Size><AbsDimension x="350" y="380"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-35"/></Offset></Anchor></Anchors>
+			</Frame>
+
+			<!-- ====== Delay Slider ====== -->
+			<Slider name="GBDS_DelaySlider" orientation="HORIZONTAL"
+			        minValue="0" maxValue="10" defaultValue="2" valueStep="0.5">
+				<Size><AbsDimension x="140" y="16"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="52" y="-453"/></Offset></Anchor></Anchors>
+				<ThumbTexture name="GBDS_DelaySliderThumb" file="Interface\Buttons\UI-SliderBar-Button-Horizontal">
+					<Size><AbsDimension x="32" y="32"/></Size>
+				</ThumbTexture>
+				<Scripts><OnValueChanged>GBDS.UI.OnDelayChanged()</OnValueChanged></Scripts>
+			</Slider>
+
+			<!-- ====== Enable Checkbox ====== -->
+			<CheckButton name="GBDS_EnableCheck" inherits="UICheckButtonTemplate">
+				<Size><AbsDimension x="24" y="24"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="220" y="-446"/></Offset></Anchor></Anchors>
+				<Scripts><OnClick>GBDS.UI.OnEnableToggle()</OnClick></Scripts>
+			</CheckButton>
+
+			<!-- ====== Bottom Buttons ====== -->
+			<Button name="GBDS_CloseBtn" inherits="UIPanelButtonTemplate" text="Close">
+				<Size><AbsDimension x="80" y="22"/></Size>
+				<Anchors><Anchor point="BOTTOM"><Offset><AbsDimension x="0" y="16"/></Offset></Anchor></Anchors>
+				<Scripts><OnClick>GBDSwitcher_ConfigFrame:Hide()</OnClick></Scripts>
+			</Button>
+		</Frames>
+
+		<Scripts>
+			<OnMouseDown>if arg1 == "LeftButton" then this:StartMoving() end</OnMouseDown>
+			<OnMouseUp>this:StopMovingOrSizing()</OnMouseUp>
+			<OnShow>GBDS.UI.Refresh()</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>

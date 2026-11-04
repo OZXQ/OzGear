@@ -1,0 +1,21 @@
+## Interface: 11200
+## Title: OzGear
+## Notes: Automatic silent gear switcher for swimming, riding, and reliable weapon swapping.
+## Author: Oz
+## Version: 0.2.0
+## SavedVariables: OzGearDB
+
+Bindings.xml
+OzGear.lua
+Data.lua
+EventBus.lua
+SetTracker.lua
+WorkHorse.lua
+Glow.lua
+ScannerData.lua
+Scanner.lua
+StatsUI.lua
+horses\riding.lua
+horses\swimming.lua
+horses\plainrunning.lua
+horses\dualwield.lua
